@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Drum Kit</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+  <div class="keys">
+    <div data-key="65" class="key">
+      <kbd>A</kbd>
+      <span class="sound">clap</span>
+    </div>
+    <div data-key="83" class="key">
+      <kbd>S</kbd>
+      <span class="sound">hihat</span>
+    </div>
+    <div data-key="68" class="key">
+      <kbd>D</kbd>
+      <span class="sound">kick</span>
+    </div>
+    <div data-key="70" class="key">
+      <kbd>F</kbd>
+      <span class="sound">openhat</span>
+    </div>
+    <div data-key="71" class="key">
+      <kbd>G</kbd>
+      <span class="sound">boom</span>
+    </div>
+    <div data-key="72" class="key">
+      <kbd>H</kbd>
+      <span class="sound">ride</span>
+    </div>
+    <div data-key="74" class="key">
+      <kbd>J</kbd>
+      <span class="sound">snare</span>
+    </div>
+    <div data-key="75" class="key">
+      <kbd>K</kbd>
+      <span class="sound">tom</span>
+    </div>
+    <div data-key="76" class="key">
+      <kbd>L</kbd>
+      <span class="sound">tink</span>
+    </div>
+  </div>
+
+  <audio data-key="65" src="sounds/clap.wav"></audio>
+  <audio data-key="83" src="sounds/hihat.wav"></audio>
+  <audio data-key="68" src="sounds/kick.wav"></audio>
+  <audio data-key="70" src="sounds/openhat.wav"></audio>
+  <audio data-key="71" src="sounds/boom.wav"></audio>
+  <audio data-key="72" src="sounds/ride.wav"></audio>
+  <audio data-key="74" src="sounds/snare.wav"></audio>
+  <audio data-key="75" src="sounds/tom.wav"></audio>
+  <audio data-key="76" src="sounds/tink.wav"></audio>
+
+<script>
+  // window.addEventListener('keydown', function(event) {
+  //   // 1
+  //   // console.log(event.keyCode);
+    
+  //   //2
+  //   // const audio = document.querySelector(`audio[data-key="${event.keyCode}"]`);
+  //   //console.log(audio); //returns nulls for key downs of characters without audio files set above
+
+  //   //3
+  //   // const audio = document.querySelector(`audio[data-key="${event.keyCode}"]`);
+  //   // if(!audio) return; //if the key pressed doesn't have audio stops function for running
+  //   // console.log(audio);
+  //   // audio.play(); //if a button is hit at the same time a whole bunch it will not play properly
+  //                    //calling .play on the same audio element that is already playing it wont play it again
+  //                    //rewind to start if a button is hit repeatedly in quick succession
+
+
+  //   //4
+  //   const audio = document.querySelector(`audio[data-key="${event.keyCode}"]`);
+  //   const key = document.querySelector(`.key[data-key="${event.keyCode}"]`);
+  //   if(!audio) return; //if the key pressed doesn't have audio stops function for running
+  //   audio.currentTime = 0; //HTMLMediaElement property
+  //   audio.play();
+  //   key.classList.add('playing'); // the play css class just stays there even after the audio has ended need a way to remove it
+  //   //listen on each key when the transition end event happgit branch -M mainens
+  // });
+
+  //6 move the key down listener to its own function
+  function playSound (event) {
+    const audio = document.querySelector(`audio[data-key="${event.keyCode}"]`);
+    const key = document.querySelector(`.key[data-key="${event.keyCode}"]`);
+    if(!audio) return;
+    audio.currentTime = 0;
+    audio.play();
+    key.classList.add('playing');
+  }
+  //---------
+  
+  //5
+  function removeTransition(event) {
+    //this will fire _*ALL*_ transition end events
+    //in this case there re 7 events 
+    //we need a way to have it only fire once on the longest
+    if(event.propertyName !== 'transform') return; // will not excute unless its an event with a name transfrom
+    console.log(event);
+    //my answer
+    // event.target.classList.remove('playing'); 
+    //his answer
+      // this in here equeals to what got called aganist it
+      // this = key called by the key.eventlistener below
+    this.classList.remove('playing'); 
+  }
+
+  const keys = document.querySelectorAll('.key');
+  //keys.addEventListener() - does not work - will end up with the event listner applying to all the elements in the nodeList `keys`
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition))
+  window.addEventListener('keydown', playSound)
+
+</script>
+
+
+</body>
+</html>
