@@ -37,28 +37,114 @@
     
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    // const one = inventors.filter(i => i.year >= 1500 && i.year <= 1600 )
+    // console.log(`one = ${JSON.stringify(one)}`)
+    //his solution v1
+    // const fifteen = inventors.filter(function(inventor) {
+    //   if(inventor.year >= 100 && inventor.year < 1600) {
+    //     return true;
+    //   }
+    //   //don't need to return false, if you don't return a true it will just assume its false and throw it out
+    // })
+    //his solution v2
+    const fifteen = inventors.filter(inventor => inventor.year >= 100 && inventor.year < 1600)
+    // console.table(fifteen); //prints the array of objects out into a table
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
+    const two = inventors.map(i => `${i.first} ${i.last}`)
+    // console.log(`two = ${two}`)
+    //his solution v1
+    const fullNames = inventors.map(inventor => `${inventor.first} ${inventor.last}`)
+    // console.table(fullNames)
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    const three = inventors.sort((a ,b) => b.year - a.year)
+    // console.log(`three = ${JSON.stringify(three)}`)
+    // console.table(three)
+    //his solution v1
+    // const ordered = inventors.sort(function(firstPerson, secondPerson) {
+    //   if(firstPerson.year > secondPerson.year) {
+    //     return 1;
+    //   } else {
+    //     return -1;
+    //   }
+    // })
+    //his solution v2
+    const ordered = inventors.sort((a, b) => a.year > b.year? 1 : -1)
+    // console.table(ordered)
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
+    const four = inventors.reduce((a, b) => a + (b.passed-b.year), 0)
+    // console.log(`four = ${four}`)
+    //his solution v1
+    const totalYears = inventors.reduce((total, inventor) => {
+      return total + (inventor.passed - inventor.year)
+    }, 0)
+    // console.log(totalYears)
 
     // 5. Sort the inventors by years lived
+    const five = inventors.sort((a ,b) => (a.passed - a.year) - (b.passed - b.year))
+    // console.table(five)
+    const oldest = inventors.sort(function(a, b) {
+      const lastGuy = a.passed - a.year
+      const nextGuy = b.passed - b.year
+      // if(lastGuy > nextGuy) {
+      //   return -1
+      // } else {
+      //   return 1
+      // }
+      return lastGuy > nextGuy? -1 : 1;
+    })
+    // console.table(oldest)
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
-
+    // my solution: no idea what he wants
+    // his solution = go do it on the console of that page
+    // Array.from(document.querySelectorAll('.mw-category a')).map(link => link.textContent).filter(a => a.includes('de'))
+    // Array.from turns a node list into an array so that map can work on it
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    const seven = people.sort((a ,b) => {
+      const a_last = a.split(',')[0]
+      const b_last = b.split(',')[0]
+      if (a_last < b_last) {
+        return -1
+      }
+      if (a_last > b_last) {
+        return 1
+      }
+      return 0;
+    })
+    // console.table(seven)
+    //his solution
+    const alpha = people.sort((lastOne, nextOne) => {
+      const [alast, afirst] = lastOne.split(', ')
+      const [blast, bfirst] = nextOne.split(', ')
+      return alast > blast ? 1 : -1 
+    })
+    // console.table(alpha)
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
-    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    // const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    // const eight = data.reduce((a, b) => {
+    //   b in a? a[b]++ : a[b] = 1;
+    //   return a;
+    // },  {})
+    // console.table(eight)
+    //his solution
+    const transportation = data.reduce(function(obj, item) {
+      if(!obj[item]) {
+        obj[item] =0
+      }
+      obj[item] ++;
+      return obj;
+    }, {}) //start with plank object
 
   </script>
 </body>
