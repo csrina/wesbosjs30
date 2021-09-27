@@ -1,0 +1,26 @@
+<html>
+  <div class="here">
+
+  </div>
+
+<script>
+  const folderName = "06 - Type Ahead";
+ 
+  const hereDiv = document.querySelector(".here");
+   console.log(hereDiv)
+  function createTarget(folder, name) {
+    let target = document.createElement('a');
+    target.textContent = `${name} html file`;
+    target.href = `${folder}/index-${name}.html`;
+
+    return target;
+  }
+
+  hereDiv.appendChild(createTarget(folderName, 'FINISHED'));
+  hereDiv.appendChild(document.createElement('br'));
+  hereDiv.appendChild(document.createElement('br'));
+  hereDiv.appendChild(createTarget(folderName, 'START'));
+
+
+  </script>
+</html>
