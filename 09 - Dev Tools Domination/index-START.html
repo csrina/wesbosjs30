@@ -18,29 +18,55 @@
     }
 
     // Regular
+    console.log('hello')
 
     // Interpolated
+    const cat = 'cat'
+    console.log('hellow i am a %s', cat)
+    console.log(`hello i am not a ${cat}`)
 
-    // Styled
+    // Styled - add any css style stuff to the console log
+    console.log('%c I am some great text', 'font-size:20px')
 
     // warning!
+    console.warn('watch out')
 
     // Error :|
+    console.error('we fudged up')
 
     // Info
+    console.info('did you know that something happened')
 
-    // Testing
+    // Testing - that is wrong is only every printed if the assertion fails
+    console.assert(1 === 1, 'that is wrong');
 
     // clearing
+    console.clear()
 
     // Viewing DOM Elements
+    const p = document.querySelector('p')
+    console.dir(p)
 
-    // Grouping together
+    // Grouping togeter
+    dogs.forEach(dog => {
+      console.group(`${dog.name}`)
+      console.log(`This is ${dog.name}`)
+      console.log(`${dog.name} is ${dog.age} years old`)
+      console.log(`${dog.name} is ${dog.age * 7} dog years old`)
+      console.groupEnd(`${dog.name}`)
+    })
 
     // counting
+    console.count('string')
 
     // timing
+    console.time('fetching data')
+    //stuff happens
+    console.timeEnd('fetching data')
 
+
+    //table
+    console.table(dogs)
   </script>
 </body>
 </html>
